@@ -1,4 +1,4 @@
-#MWE frontend dependencies
+# MWE frontend dependencies
 
 I used the 'Project Base for Vaadin Flow and Spring Boot'
 
