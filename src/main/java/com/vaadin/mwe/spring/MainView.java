@@ -1,21 +1,24 @@
 package com.vaadin.mwe.spring;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.PWA;
+import com.vaadin.mwe.spring.dynamic.DynamicComponent;
 
 @Route
-@PWA(name = "Project Base for Vaadin Flow with Spring", shortName = "Project Base")
-public class MainView extends VerticalLayout {
+public class MainView extends AppLayout {
 
-    public MainView(@Autowired MessageBean bean) {
-        Button button = new Button("Click me",
-                e -> Notification.show(bean.getMessage()));
-        add(button);
-    }
+  private static final long serialVersionUID = 1L;
+
+  public MainView(@Autowired Collection<DynamicComponent> comps) {
+    
+    comps.forEach(comp -> {
+      addToDrawer(new Button(comp.getDynamicId(), e -> showRouterLayoutContent(comp)));
+    });
+  }
 
 }
